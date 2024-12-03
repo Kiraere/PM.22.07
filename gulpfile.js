@@ -16,13 +16,22 @@ async function getImagemin() {
     return imagemin.default; // Use default export
 }
 gulp.task('styles', () => {
-    return src('app/scss/**/*.css') // Вибирає всі SCSS файли в app/scss
+    return src('app/scss/**/*.scss') // Вибирає всі SCSS файли в app/scss
         .pipe(sass().on('error', sass.logError)) // Компілює SCSS у CSS
         .pipe(postcss([cssnano()])) // Мінімізує CSS
         .pipe(rename({ suffix: '.min' })) // Додає суфікс '.min' до файлу
         .pipe(dest('dist/css')); // Зберігає в папку dist/css
 });
 
+// const scss_task = () => {
+//     return src('app/scss/*.scss') // Вибір усіх файлів SCSS
+//         .pipe(concat('style.scss')) // Об'єднання всіх SCSS у один файл
+//         .pipe(sass()) // Компіляція SCSS у CSS
+//         .pipe(cssnano()) // Мінімізація CSS
+//         .pipe(rename({suffix: '.min'})) // Додавання суфіксу .min до файлу
+//         .pipe(dest('dist/css')) // Збереження результату як єдиного файлу
+//         .pipe(browserSync.stream());
+// };
 // Minify SCSS
 // gulp.task('sass', () => {
 //     return src('app/scss/*.scss')
@@ -48,7 +57,13 @@ gulp.task('html', () => {
             basepath: '@file'}))
         .pipe(dest('dist'));
 });
-
+// Таск для автоматичного перезавантаження сторінки
+// gulp.task("serve", function () {
+//     browserSync.init({
+//         server: {
+//             baseDir: "./dist",
+//         }
+//     });
 // Compress images
 gulp.task('img', async () => {
     const imagemin = await getImagemin();
@@ -63,6 +78,7 @@ gulp.task('watch', () => {
     gulp.watch('app/js/*.js', gulp.series('uglify'));
     gulp.watch('app/index.html', gulp.series('html'));
     gulp.watch('app/html/*.html', gulp.series('html'));
+
 });
 
 // Update browser
