@@ -23,6 +23,7 @@
     "sass": "^1.79.1"
   },
   "devDependencies": {
-    "cssnano": "^7.0.6"
+    "cssnano": "^7.0.6",
+    "http-server": "^14.1.1"
   }
 }

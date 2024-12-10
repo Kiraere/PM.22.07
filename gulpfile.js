@@ -89,6 +89,7 @@ gulp.task('browser-sync', () => {
         }
     });
     gulp.watch('./dist').on('change', browserSync.reload);
+    gulp.watch('./data').on('change', browserSync.reload);
 });
 
 // Default task
